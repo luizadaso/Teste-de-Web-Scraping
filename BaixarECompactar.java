@@ -24,5 +24,14 @@ public class BaixarECompactar {
                     System.err.println("Arquivo não encontrado: " + urlArquivo);
                 }
             }
+            
+            // Compactar os arquivos baixados em ZIP
+            String nomeArquivoZip = "anexos.zip";
+            compactarArquivos(dirDownload, nomeArquivoZip);
 
+            System.out.println("Download e compactação concluídos com sucesso.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
