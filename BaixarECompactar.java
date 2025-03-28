@@ -34,12 +34,32 @@ public class BaixarECompactar {
             e.printStackTrace();
         }
     }
-    
+
     private static void baixarArquivo(String urlArquivo, String dirDownload) throws IOException {
         URL url = new URL(urlArquivo);
         String nomeArquivo = urlArquivo.substring(urlArquivo.lastIndexOf('/') + 1);
         try (InputStream in = url.openStream()) {
             Files.copy(in, Paths.get(dirDownload, nomeArquivo), StandardCopyOption.REPLACE_EXISTING);
         }
-    }    
+    }
+
+    private static void compactarArquivos(String dirOrigem, String nomeArquivoZip) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(nomeArquivoZip);
+             ZipOutputStream zos = new ZipOutputStream(fos)) {
+            Path caminhoOrigem = Paths.get(dirOrigem);
+            Files.walk(caminhoOrigem)
+                .filter(path -> !Files.isDirectory(path))
+                .forEach(path -> {
+                    ZipEntry zipEntry = new ZipEntry(caminhoOrigem.relativize(path).toString());
+                    try {
+                        zos.putNextEntry(zipEntry);
+                        Files.copy(path, zos);
+                        zos.closeEntry();
+                    } catch (IOException e) {
+                        System.err.println("Falha ao compactar o arquivo: " + path);
+                        e.printStackTrace();
+                    }
+                });
+        }
+    }
 }
