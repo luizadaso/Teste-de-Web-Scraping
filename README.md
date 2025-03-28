@@ -4,7 +4,7 @@ Este projeto em Java realiza o download de arquivos PDF a partir de URLs especí
 
 ## Funcionalidades
 
-- Acessa o site da ANS para obter os arquivos PDF.
+- Acessa o site da [ANS](https://www.gov.br/ans/pt-br/acesso-a-informacao/participacao-da-sociedade/atualizacao-do-rol-de-procedimentos) para obter os arquivos PDF.  
 - Baixa os arquivos PDF especificados: Anexo I e Anexo II.
 - Compacta os arquivos baixados em um único arquivo ZIP.
 
